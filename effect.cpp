@@ -2,12 +2,7 @@
 
 
 	Ef02::Ef02(const Vec2& pos) {
-		/*effectPos.resize(8);    // 配列サイズを4個にする
 
-		for (auto& i : effectPos) { // 範囲ループで代入する
-			i = pos;
-		}
-		*/
 		effectPos = pos;
 		attackEffect = std::make_unique<Anime>(TextureAsset(L"attackEffect2"), 21,1);
 	}
@@ -22,27 +17,6 @@
 
 		Graphics2D::SetBlendState(BlendState::Default);
 
-		/*
-		effectPos[0].x += 2;        // 座標を移動させる
-		effectPos[1].y += 2;
-		effectPos[2].x -= 2;
-		effectPos[3].y -= 2;
-
-		effectPos[4].x += 1.4;        // 座標を移動させる
-		effectPos[4].y += 1.4;
-		effectPos[5].x -= 1.4;
-		effectPos[5].y -= 1.4;
-
-		effectPos[6].x += 1.4;        // 座標を移動させる
-		effectPos[6].y -= 1.4;
-		effectPos[7].x -= 1.4;
-		effectPos[7].y += 1.4;
-
-
-		for (auto& i : effectPos) {
-			Rect(i.x - 4, i.y - 4, 8, 8).draw(ColorF(Palette::Red, 1.0 - t * 2)); // 四角を描画
-		}
-		*/
 		return attackEffect->m_index != attackEffect->m_size-1; // ここがfalseになるか、10秒たつと消滅
 	}
 
