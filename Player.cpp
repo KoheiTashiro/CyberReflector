@@ -207,16 +207,6 @@ void player::checkEnemyTouch()
 }
 
 void player::checkShotedTime()
-{/*
-	// 1.0 ïbÇ≈è¡Ç¶ÇÈ
-	if (shotedTime <= 30) {
-		FontAsset(L"font").drawCenter(Format((int)hp), Vec2(getX(), getY() - 30), HSV(260 - hp/6));
-	}
-	else if (shotedTime <= 60) {
-		//0.5ïbà»è„åoâﬂÇ≈à√Ç≠Ç»ÇÈÅB
-		FontAsset(L"font").drawCenter(Format((int)hp), Vec2(getX(), getY() - 30), HSV(260 - hp/6).toColorF(1 - 1 / 30.0 * (shotedTime - 30)));
-	}
-	*/
-	
+{	
 	++shotedTime;
 }
