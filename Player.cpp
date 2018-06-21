@@ -184,26 +184,17 @@ void player::checkBulletHit()
 void player::checkEnemyTouch()
 {
 
-	auto itenemy = game->enemys->enemys.begin();
-
-	while (itenemy != game->enemys->enemys.end()) {
-
-		
+	for (auto&& itenemy : game->enemys->enemys) {
 		//自機が敵にあたったら
-				if (Circle((*itenemy)->getX(), (*itenemy)->getY(), (*itenemy)->getHitArea()).intersects(Circle(x, y, hitArea))) {
-
-
-					//じきにダメージを与える。
-					hp -= 0.3;
-					SoundAsset(L"damage").playMulti(0.05);
-					checkShotedTime();
-					shotedTime = 0;
-				}
-
-				itenemy++;
-
+		if (Circle(itenemy->getX(), itenemy->getY(), itenemy->getHitArea()).intersects(Circle(x, y, hitArea))) {
+			//じきにダメージを与える。
+			hp -= 0.3;
+			SoundAsset(L"damage").playMulti(0.05);
+			checkShotedTime();
+			shotedTime = 0;
 		}
-
+	}
+	
 }
 
 void player::checkShotedTime()
