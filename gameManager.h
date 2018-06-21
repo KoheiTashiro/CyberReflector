@@ -113,8 +113,6 @@ public:
 		myUnit->update();
 		enemys->update();
 
-		//	bullets->update();
-
 		enemys->checkExist(this);
 
 
@@ -175,11 +173,7 @@ public:
 		if (gameClearCount > 0) {
 			TextureAsset(L"clear").drawAt(Window::Center(), Alpha(Min(255, gameClearCount * 4)));
 		}
-
-		/*else if (gameOverCount > 0) {
-			TextureAsset(L"gameover").drawAt(Window::Center(), Alpha(Min(255,gameOverCount * 4)));
-		}*/
-
+		
 		WriteCursor();
 		FontAsset(L"font")(Profiler::FPS(), L"fps").draw(750, 580);
 
@@ -207,10 +201,9 @@ public:
 		color = 255 * abs(sin(Time::GetMillisec() * Pi / 10000));
 		color2 = 255 * abs(sin(Time::GetMillisec() * Pi / 10000 + 1));
 		color3 = 255 * abs(sin(Time::GetMillisec() * Pi / 10000 + 2));
-		//Rect(0, 0,800,600).draw({ Color(Color(11,22,33),color), Color(Color(11,22,33),color2),Color(Color(11,22,33),color2), Color(Color(11,22,33),color3)});
 		Rect(0, 0, 800, 600).draw({ Color(ConstClass::backColor,color), Color(ConstClass::backColor,color2),Color(ConstClass::backColor,color2), Color(ConstClass::backColor,color3) });
-		//	Line(0.0, myUnit->getY(), ConstClass::ScreenX, myUnit->getY()).draw(2, { HSV(0, 1, 1),150 });
-		//	Line(myUnit->getX(), 0.0, myUnit->getX(), ConstClass::ScreenY).draw(2, { HSV(0, 1, 1),150 });
+			Line(0.0, myUnit->getY(), ConstClass::ScreenX, myUnit->getY()).draw(2, { HSV(0, 1, 1),150 });
+			Line(myUnit->getX(), 0.0, myUnit->getX(), ConstClass::ScreenY).draw(2, { HSV(0, 1, 1),150 });
 	};
 
 	void gauge() {
