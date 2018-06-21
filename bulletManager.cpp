@@ -9,7 +9,6 @@ enum type {
 
 bulletManager::bulletManager()
 {
-	//bullets.reserve(5000);
 }
 
 void bulletManager::update() {
@@ -30,8 +29,7 @@ void bulletManager::update() {
 
 
 void bulletManager::draw() {
-	//ここを実装
-	//イテレーターを利用してbulletのdrawを呼ぶ
+
 	for (auto&& iter : bullets) {
 		iter->draw();
 

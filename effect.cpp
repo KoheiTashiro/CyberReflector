@@ -50,7 +50,6 @@
 		movePos();
 
 		for (auto& i : effectPos) {
-			//Rect(i.x - 4, i.y - 4, 8, 8).draw(ColorF(Palette::White, 1.0 - t * 2)); // ŽlŠp‚ð•`‰æ
 			Circle(i.x , i.y, 3).draw(ColorF(HSV(40-t*80,1,1), 1.0 - t * 2));
 		}
 		return t < 0.5; // ‚±‚±‚ªfalse‚É‚È‚é‚©A10•b‚½‚Â‚ÆÁ–Å

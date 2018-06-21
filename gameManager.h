@@ -29,10 +29,6 @@ public:
 
 	};
 	
-	//コンストラクタがprivateなのでGet関数以外からは生成不可
-	//gameManager(const gameManager& r) = delete;//コピーコンストラクタの削除(コピー禁止)
-	//gameManager& operator=(const gameManager& r) = delete;//代入演算子の削除(代入禁止)
-
 	~gameManager() {
 		ClipCursor(NULL);
 	}
@@ -72,14 +68,7 @@ public:
 	int color3;
 
 	/*
-	シングルトン使わず
-	ゲームやるたびinit関数で初期化するのはめんどいし...
 	gameManager自体は普通に作って、gameManagerの生成を管理するシングルトンを他に作る手もある？
-	static gameManager& get() {
-
-		static gameManager inst;//static変数なので初めてGet関数が呼ばれたとき以外は実体が残る。
-		return inst;
-	}
 	*/
 
 	void update() {
@@ -202,8 +191,6 @@ public:
 		color2 = 255 * abs(sin(Time::GetMillisec() * Pi / 10000 + 1));
 		color3 = 255 * abs(sin(Time::GetMillisec() * Pi / 10000 + 2));
 		Rect(0, 0, 800, 600).draw({ Color(ConstClass::backColor,color), Color(ConstClass::backColor,color2),Color(ConstClass::backColor,color2), Color(ConstClass::backColor,color3) });
-			Line(0.0, myUnit->getY(), ConstClass::ScreenX, myUnit->getY()).draw(2, { HSV(0, 1, 1),150 });
-			Line(myUnit->getX(), 0.0, myUnit->getX(), ConstClass::ScreenY).draw(2, { HSV(0, 1, 1),150 });
 	};
 
 	void gauge() {

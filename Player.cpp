@@ -1,5 +1,4 @@
 #include "interface.h"
-//#define shieldArc (Pi)
 #define shieldSurplus  5
 
 player::player(double startX,double startY,gameManager* setGame,int machineSelect) {
@@ -39,37 +38,7 @@ player::player(double startX,double startY,gameManager* setGame,int machineSelec
 	hp = hpMax;
 	energy = energyMax;
 }
-/*
-void player::update() {
 
-	angle = atan2(Mouse::Pos().x - x, Mouse::Pos().y - y);
-
-
-	if (Input::MouseL.pressed) {
-		
-
-		double movedx = sin(angle)*movev + x;
-		double movedy = cos(angle)*movev + y;
-
-		//‚P‚e‚ÌˆÚ“®‹——£‚æ‚è‹ß‚­‚ÉƒAƒCƒRƒ“‚ª‚ ‚ê‚ÎˆÚ“®‚µ‚È‚¢B
-		if (!Circle(x,y,movev).intersects(Point(Mouse::Pos()) )){
-			x += sin(angle)*movev;
-			y += cos(angle)*movev;
-		}
-
-	}
-	if (Input::MouseR.pressed) {
-		//y += movev;
-		angle = atan2(Mouse::Pos().x - x, Mouse::Pos().y - y);
-		x -= sin(angle)*backv;
-		y -= cos(angle)*backv;
-	}
-
-	x = Clamp((int)x, 0,ConstClass::ScreenX);
-	y = Clamp((int)y, 0, ConstClass::ScreenY);
-
-}
-*/
 void player::update() {
 
 	angle = atan2(Mouse::Pos().x - x, Mouse::Pos().y - y);
@@ -141,7 +110,6 @@ void player::draw() {
 	fireSize = Clamp(fireSize, 0.0, 0.06);
 
 	
-	//(TextureAsset(L"fireme").scale(0.2 + fireSize + Random(-0.005 - fireSize / 10, 0.005 + fireSize / 10))).rotate(-angle + Random(-0.04, 0.04)).drawAt(x + hitArea*(1.7 + fireSize * 10) * sin(-angle), y - hitArea*(1.7 + fireSize * 10) * cos(-angle));
 	fireAnime->update();
 	fireAnime->draw(Vec2{x + hitArea*(2.2 + fireSize * 5) * sin(-angle),y - hitArea*(2.2 + fireSize * 5) * cos(-angle)},0.5+fireSize,-angle);
 
@@ -152,12 +120,7 @@ void player::draw() {
 	if (shield == true) {
 	//ƒV[ƒ‹ƒh‚ð•`ŽÊ
 
-	//	Circle(x, y, hitArea + 8).drawArc(-angle + Pi - shieldArc / 2, shieldArc, 5.0, 0.0, HSV(40+energy, 1, (double)energy / ConstClass::Energy));
-	//	Circle(x, y, hitArea + 8).drawArc(-angle + Pi - shieldArc / 2, shieldArc, 2.0, 0.0, HSV(40+energy, 1, 1));
-
-		//Circle(x, y, hitArea + 8).drawArc(-angle + Pi - shieldArc / 2, shieldArc*energy / ConstClass::Energy, 5.0, 0.0, HSV(120, 1, 1));
 		Circle(x, y, hitArea + 8).drawPie(-angle + Pi - shieldArc / 2, shieldArc*energy / energyMax, { HSV(120, 1, 1),150 });
-		//Circle(x, y, hitArea + 8).drawArc(-angle + Pi - Pi, 2*Pi*energy / ConstClass::Energy, 5.0, 0.0, HSV(120, 1, 1));
 		Circle(x, y, hitArea + 8).drawArc(-angle + Pi - shieldArc / 2, shieldArc, 5.0, 0.0, HSV(40, 1, 1));
 
 	}
@@ -197,16 +160,15 @@ void player::checkBulletHit()
 			//Ž©‹@‚É‚ ‚½‚Á‚½‚ç
 			if (Circle((*itbullet)->getX(), (*itbullet)->getY(), (*itbullet)->getHitArea()).intersects(Circle(x,y,hitArea))) {
 				
-				
 				//‚¶‚«‚Éƒ_ƒ[ƒW‚ð—^‚¦‚éB
 				hp -= (*itbullet)->damage;
-				//itbullet++;
 				SoundAsset(L"damage").playMulti();
 				game->effect->add<Efplayer>(Vec2((*itbullet)->getX(), (*itbullet)->getY()));
 				//hp‚ð•`ŽÊ‚·‚é‚½‚ß‚ÉAshotedTime‚ð‚O‚É‚·‚éB
 				shotedTime = 0;
 				//’e‚ðÁ‚·B
 				itbullet = game->bullets->bullets.erase(itbullet);
+
 			}
 			else itbullet++;
 
