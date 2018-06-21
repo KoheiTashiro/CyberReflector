@@ -17,8 +17,7 @@ void enemyManager::update() {
 }
 
 void enemyManager::draw() {
-	//enemyのdrawを呼ぶ
-	//あとhpのdrawも呼ぶ。
+
 	for (auto&& iter :enemys) {
 		iter->draw();
 		iter->checkShotedTime();
@@ -27,9 +26,8 @@ void enemyManager::draw() {
 
 void enemyManager::addEnemyDebug(gameManager* setGame) {
 
-	//ここを実装
 	//指定された座標に敵を生成
-	/*
+	#ifdef _DEBUG
 	if (Input::KeyN.clicked) {
 		//enemysはshared_ptr<enemy>のlistなので、make_sharedでポインタを渡そう。
 		enemys.push_back(std::make_unique<enemy>((double)Random(20, ConstClass::GameScreenX), (double)Random(ConstClass::GameStartY, ConstClass::ScreenY), game));
@@ -46,7 +44,7 @@ void enemyManager::addEnemyDebug(gameManager* setGame) {
 	if (Input::KeyB.clicked) {
 		enemys.push_back(std::make_unique<enemyA2>((double)Random(20, ConstClass::GameScreenX), (double)Random(ConstClass::GameStartY, ConstClass::ScreenY), game));
 	}
-	*/
+	#endif
 	
 }
 
