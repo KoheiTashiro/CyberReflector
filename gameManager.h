@@ -131,10 +131,11 @@ public:
 
 
 	void draw() {
-		//ClearPrint();
-		//Println(L"bullet:",bullets->bullets.size());
-		//Println(L"bullet:", bullets->bullets.capacity());
-
+		#ifdef _DEBUG
+		ClearPrint();
+		Println(L"bullet:",bullets->bullets.size());
+		Println(L"bullet:", bullets->bullets.capacity());
+		#endif
 
 		if (isPause) {
 			//マウス座標の制限をなくす。
@@ -143,7 +144,6 @@ public:
 			FontAsset(L"result")(L"PAUSE").drawCenter(Window::Center() - Point(0, 60));
 			FontAsset(L"result")(L"SPACEキーで解除").drawCenter(Window::Center());
 			FontAsset(L"result")(L"ESCキーでタイトル画面").drawCenter(Window::Center() + Point(0, 60));
-			//FontAsset(L"result")(L"あと",pauseCount,L"回ポーズできます").drawCenter(Window::Center() + Point(0, 90));
 			if (Input::KeyEscape.clicked) {
 				isOver = true;
 
@@ -201,7 +201,6 @@ public:
 			if (lineY > ConstClass::ScreenY) {
 				lineY = lineY % ConstClass::ScreenY;
 			}
-			//Line(0.0, lineY, ConstClass::ScreenX, lineY).draw(HSV(90,1, abs(sin(Time::GetMillisec() * 0.000314 + lineY*0.01) )));
 			Line(0.0, lineY, ConstClass::ScreenX, lineY).draw(2, HSV(90, 1, 1));
 		}
 
@@ -215,13 +214,10 @@ public:
 	};
 
 	void gauge() {
-		//	Line(650, 0, 650, 600).draw(3);
 
 		Line(0, 50, 800, 50).draw(3);
-		//	Rect(0, 0, 800, 50).draw();
-
-
-			//HPゲージの描写
+		
+		//HPゲージの描写
 		Rect(5, 5, 300, 20).drawFrame(0, 2, Palette::Darkred);
 		Rect(5, 5, 300 * (myUnit->hp) / (myUnit->hpMax), 20).draw({ HSV(180,1,1), HSV(180 + 60 * (myUnit->hp) / (myUnit->hpMax),1,1), HSV(180 + 60 * (myUnit->hp) / (myUnit->hpMax),1,1), HSV(180,1,1) });
 

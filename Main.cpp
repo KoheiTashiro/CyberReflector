@@ -279,7 +279,6 @@ public:
 
 		for (auto i : step(m_menuBoxes.size()))
 		{
-			//m_menuBoxes[i].set(ConstClass::ScreenX/2 -(boxWidth+80)/2, 280 + i * 80, boxWidth + 80, 60);
 			m_menuBoxes[i].set(+ConstClass::ScreenX / 2 - (boxWidth + 65) / 2, 260 + i * 68, boxWidth + 65, 55);
 		}
 	}
@@ -351,8 +350,6 @@ public:
 		Graphics2D::SetBlendState(BlendState::Default);
 
 		const double titleHeight = FontAsset(L"Title")(GameInfo::Title).region().h;
-
-		//FontAsset(L"Title")(GameInfo::Title).drawAt(Window::Center().x, titleHeight);
 
 		TextureAsset(L"cyber").drawAt(Window::Center().x, titleHeight);
 
@@ -433,8 +430,6 @@ public:
 		m_menuBoxes.resize(m_menuTexts2.size());
 
 		int32 boxWidth = 0;
-	//	isMouseOver = 0;
-	//	isMouseOverBefore = 0;
 
 		for (const auto& text : m_menuTexts2)
 		{
@@ -444,7 +439,6 @@ public:
 		for (auto i : step(m_menuBoxes.size()))
 		{
 			//四角形の大きさをset
-			//m_menuBoxes[i].set(ConstClass::ScreenX / 2 - (boxWidth + 80) / 2 , 210 + i * 80, boxWidth + 80, 60);
 			m_menuBoxes[i].set(ConstClass::ScreenX / 2 - (boxWidth + 80) / 2 -45*i+135 , 20 + i * 115, boxWidth + 80, 100);
 
 		}
@@ -475,34 +469,33 @@ public:
 			if (item.leftClicked)
 			{
 				SoundAsset(L"decision").play();
-			//	if (Input::KeyA.pressed) {
-			//	m_data->lastMachine=1;
-			//	}else m_data->lastMachine = 0;
+
+				#ifdef _DEBUG
+				if (Input::KeyA.pressed) {
+				m_data->lastMachine=1;
+				}else m_data->lastMachine = 0;
+				#endif
 
 
 				if (i == 0)
 				{
 					m_data->lastLevel = ConstClass::Level::TUTORIAL;
-					//changeScene(L"Game");
 					changeScene(L"Machine");
 
 				}
 				else if (i == 1)
 				{
 					m_data->lastLevel = ConstClass::Level::NORMAL;
-					//changeScene(L"Game");
 					changeScene(L"Machine");
 				}
 				else if (i == 2)
 				{
 					m_data->lastLevel = ConstClass::Level::HARD;
-					//changeScene(L"Game");
 					changeScene(L"Machine");
 				}
 				else if (i==3)
 				{
 					m_data->lastLevel = ConstClass::Level::LUNA;
-					//changeScene(L"Game");
 					changeScene(L"Machine");
 				}
 				else {
@@ -518,11 +511,6 @@ public:
 			changeScene(L"Title");
 			}
 		}
-		
-		//if (isMouseOver != isMouseOverBefore) {
-		//		SoundAsset(L"select").playMulti(0.5);
-		//		isMouseOverBefore = isMouseOver;
-		//}
 
 		if (m_effectBackgroundStopwatch.elapsed() > 50ms)
 		{
@@ -542,16 +530,12 @@ public:
 
 		Graphics2D::SetBlendState(BlendState::Default);
 
-		//if(m_data->lastScore < 500)
 		FontAsset(L"Level")(L"Level\n   Select").draw(10, 0);
 
 		for (auto i : step(m_menuBoxes.size()))
 		{
 			m_menuBoxes[i].shearedX(20).draw(HSV(40*i,0.5,1));
-
-			//↓だけ表示にして、menuをakasiじゃなくせば通常フォント表示になる
-			//FontAsset(L"Menu")(m_menuTexts2[i]).drawAt(m_menuBoxes[i].center, Color(40));
-
+			
 			//日本語の行があるかないかで、表示方法を変える
 			if (m_menuTextsjp[i] == L"") {
 				FontAsset(L"Menu")(m_menuTexts[i]).drawAt(m_menuBoxes[i].center, Color(40));
@@ -614,15 +598,11 @@ public:
 		m_menuBoxes.resize(3);
 
 		int32 boxWidth = 0;
-		//	isMouseOver = 0;
-		//	isMouseOverBefore = 0;
-
 	
 
 		for (auto i : step(m_menuBoxes.size()-1))
 		{
 			//四角形の大きさをset
-			//m_menuBoxes[i].set(ConstClass::ScreenX / 2 - (boxWidth + 80) / 2 , 210 + i * 80, boxWidth + 80, 60);
 			m_menuBoxes[i].set(70, 120 + i * 200, ConstClass::ScreenX - 70*2, 170);
 
 		}
@@ -633,8 +613,11 @@ public:
 
 	void update() override
 	{
-		//ClearPrint();
-		//Println(Mouse::Pos());
+		#ifdef _DEBUG
+		ClearPrint();
+		Println(Mouse::Pos());
+		#endif
+
 		bool handCursor = false;
 
 
@@ -716,7 +699,6 @@ public:
 
 		for (auto i : step(m_menuBoxes.size()-1))
 		{
-			//m_menuBoxes[i].shearedX(0).draw(HSV(40 * i, 0.5, 1));
 			m_menuBoxes[i](TextureAsset(L"machine" + ToString(i))).draw();
 		}
 
@@ -806,12 +788,7 @@ private:
 	bool isHiScore;
 
 	std::array<ScoreData, 5> m_highScores = defaultHighScores;
-
-//	const Circle titleButton = Circle(Window::Center().x - 200, Window::Height() * 0.7, 30);
-
-//	const Circle tweetButton = Circle(Window::Center().x + 200, Window::Height() * 0.7, 30);
 	
-
 	const Rect titleButton = Rect(Window::Center().x - 220-FontAsset(L"ResultButton")(L"Go to Title").region().w/2, Window::Height() * 0.7+37, FontAsset(L"ResultButton")(L"Go to Title").region().w+20, FontAsset(L"ResultButton")(L"Go to Title").region().h);
 
 	const Rect tweetButton = Rect(Window::Center().x + 180 - FontAsset(L"ResultButton")(L"Go to Title").region().w / 2, Window::Height() * 0.7 +37, FontAsset(L"ResultButton")(L"Go to Title").region().w+20, FontAsset(L"ResultButton")(L"Go to Title").region().h);
@@ -907,44 +884,18 @@ public:
 
 	void draw() const override
 	{
-		//ClearPrint();
-		//Println(Mouse::Pos());
-		
+		#ifdef _DEBUG
+		ClearPrint();
+		Println(Mouse::Pos());
+		#endif
+
 		const double resultHeight = FontAsset(L"Result")(L"x", m_data->lastScore).region().h;
 
-		//const Rect frame(20, 190, 760, 150);
 		const Rect frame(20, 535, 760, 50);
 		const Rect frameMessage(25, 535, 750, 50);
 		
-		//FontAsset(L"Hint")(L"攻略のヒント").draw(frame.pos + Point(30, -60));
 		frameMessage(hintTexture).draw();
-		/*
-		switch (0) {
-		case 0:
-			//FontAsset(L"Hint")(L"バリアを貼った状態で敵に突っ込めば").draw(frame.pos + Point(30, 20));
-			//FontAsset(L"Hint")(L"大量のダメージを与えられるぞ").draw(frame.pos + Point(30, 80));
-		
-			//FontAsset(L"Hint")(L"バリアを貼った状態で敵に突っ込めば  大量のダメージを与えられるぞ").draw(frame.pos + Point(10, 2));
-		
-			break;
-		case 1:
-			FontAsset(L"Hint")(L"カドでバリアを張れば　死角が減り").draw(frame.pos + Point(30, 20));
-			FontAsset(L"Hint")(L"安全に反射できるぞ").draw(frame.pos + Point(30, 80));
-			break;
-		case 2:
-			FontAsset(L"Hint")(L"包囲されてしまうと　HPは一気に減る").draw(frame.pos + Point(30, 20));
-			FontAsset(L"Hint")(L"有利な位置取りを心がけよう").draw(frame.pos + Point(30, 80));
-			break;
-		case 3:
-			FontAsset(L"Hint")(L"エネルギーが無ければ逃げ回り時間を稼ぐ").draw(frame.pos + Point(30, 20));
-			FontAsset(L"Hint")(L"ヒットアンドアウェイ戦法が有効だ").draw(frame.pos + Point(30, 80));
-			break;
-		case 4:
-			FontAsset(L"Hint")(L"慣れてきたら　次のWaveの敵の出現位置を").draw(frame.pos + Point(30, 20));
-			FontAsset(L"Hint")(L"意識した位置取りをしてみよう").draw(frame.pos + Point(30, 80));
-			break;
-		}
-		*/
+
 		frame.stretched(2).drawFrame(0, 2, Palette::White);
 
 		frame.stretched(-2).drawFrame(0, 2, Palette::White);
@@ -1099,10 +1050,8 @@ public:
 		ranking.draw(ColorF(0.4, 0.8, 1, 0.4));
 		ranking.drawFrame(2, 0, ColorF(0.4, 0.8, 1));
 
-		//FontAsset(L"Ranking")(L"Ranking").drawAt(Window::Center().x, 160, Color(Palette::Orange));
 		FontAsset(L"MachineSelect")(L"Ranking").drawAt(Window::Center().x, 100);
-
-
+		
 		for (auto i : step(m_highScores.size()))
 		{
 			FontAsset(L"Ranking")(i + 1, L"位").draw(120 - FontAsset(L"Ranking")(i + 1, L"位").region().w, 190 + i * 50, HSV(40*i,0.5,1));
@@ -1217,10 +1166,7 @@ public:
 
 	void draw() const override
 	{
-		/*
-		ClearPrint();
 	
-		*/
 		Graphics2D::SetBlendState(BlendState::Additive);
 
 		m_effect.update();
@@ -1436,7 +1382,6 @@ void Main()
 	FontAsset::Register(L"Title", GameInfo::TitleFontSize, Typeface::Heavy, FontStyle::Outline);
 	FontAsset(L"Title").changeOutlineStyle(TextOutlineStyle(Color(60), Color(255), GameInfo::TitleFontSize * 0.05));
 	FontAsset::Register(L"Menu", GameInfo::MenuFontSize,  L"Akashi");
-	//FontAsset::Register(L"Menu", GameInfo::MenuFontSize, Typeface::Bold);
 	FontAsset::Register(L"MenuJp", GameInfo::MenuFontSize, Typeface::Bold);
 	FontAsset::Register(L"TolophyRate", 22, Typeface::Bold);
 	FontAsset::Register(L"Version", 14, Typeface::Regular);
@@ -1444,7 +1389,6 @@ void Main()
 	//FontAsset::Register(L"TolophyGet", 14,Typeface::Bold);
 	FontAsset::Register(L"CountDown", 72, Typeface::Bold);
 	FontAsset::Register(L"Result", 60, Typeface::Bold);
-//	FontAsset::Register(L"ResultButton", 32, Typeface::Regular);
 	FontAsset::Register(L"ResultButton", 30, L"Akashi");
 	FontAsset::Register(L"GameTime", 40, Typeface::Light);
 	FontAsset::Register(L"ScoreList", 50, Typeface::Heavy);
@@ -1456,7 +1400,6 @@ void Main()
 	FontAsset::Register(L"Ranking", 30,Typeface::Bold);
 	FontAsset::Register(L"RankingThin", 23,Typeface::Regular);
 
-	//FontAsset::Register(L"Level",34, Typeface::Bold, FontStyle::Outline);
 	FontAsset::Register(L"Level",34, L"Akashi", FontStyle::Outline);
 	FontAsset(L"Level").changeOutlineStyle(TextOutlineStyle(Palette::White, Palette::Red, 36 * 0.05));
 	FontAsset::Register(L"MachineSelect", 34, L"Akashi", FontStyle::Outline);
