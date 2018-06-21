@@ -21,8 +21,7 @@ void enemy::update() {
 	//modeにより移動方法を変更。
 	
 		angle = atan2(game->myUnit->getX() - x, game->myUnit->getY() - y);
-		//x += sin(angle)*movev;
-		//y += cos(angle)*movev;
+
 		interval++;
 
 	
@@ -41,9 +40,6 @@ void enemy::draw() {
 
 
 	TextureAsset(L"foreway").drawAt(x, y);
-	//Circle(x, y, 24).draw(Palette::Skyblue);
-
-
 
 }
 
@@ -59,10 +55,8 @@ void enemy2::update()
 {
 	//modeにより移動方法を変更。
 
-	//angle = atan2(game->myUnit->getX() - x, game->myUnit->getY() - y);
 	angle += ConstClass::LazerRotateSpeed;
-	//x += sin(angle)*movev;
-	//y += cos(angle)*movev;
+
 	
 	if (interval > 30) {
 		game->bullets->addbullet(x - hitArea* sin(-angle), y + hitArea* cos(-angle), 5, angle, true, 4);
@@ -95,7 +89,6 @@ void enemy::checkBulletHit(gameManager *game)
 				hp -= (*itbullet)->damage;
 				//hpを描写するために、shotedTimeを０にする。
 				shotedTime = 0;
-				//game->effect->add<TextEffect>(hp, Vec2(getX(), getY()));
 				//もしＨＰが０以下になったら存在を抹消する。
 				if (hp <= 0 && exist == true) {
 					//スコアを足す
@@ -156,8 +149,6 @@ void enemyA::draw() {
 
 
 	TextureAsset(L"chaser").rotate(-angle + Pi).drawAt(x, y);
-	//Circle(x, y, 24).draw(Palette::Yellow);
-
 	
 
 }
@@ -188,9 +179,6 @@ void enemyA2::update() {
 
 void enemyA2::draw() {
 	TextureAsset(L"stalker").rotate(-angle + Pi).drawAt(x, y);
-	//Circle(x, y, 24).draw(Palette::Yellow);
-
-
 }
 
 enemyB::enemyB(double ix, double iy, gameManager * setGame):enemy(ix,iy,setGame)
@@ -208,16 +196,10 @@ void enemyB::update()
 	angle = atan2(game->myUnit->getX() - x, game->myUnit->getY() - y);
 
 	interval++;
-
-	//if (interval % 120< 40) {
-		//距離が遠ければ
 	
-//	}
-
 	if (interval % 240 >=180) {
 		if (interval % 2 == 0) {
 			game->bullets->addbullet(x - hitArea* sin(-bulletAngle-angle), y + hitArea* cos(-bulletAngle-angle), 3, angle+ bulletAngle,  true, 2);
-			//game->bullets->addbullet(x, y, 4, -bulletAngle,  true);
 		}
 		bulletAngle += 2 * Pi / 60;
 	}
@@ -243,8 +225,6 @@ void enemyB::update()
 void enemyB::draw()
 {
 	TextureAsset(L"spinner").rotate(-bulletAngle-angle + Pi).drawAt(x, y);
-	//Circle(x, y, 24).draw(Palette::Yellow);
-
 
 }
 
