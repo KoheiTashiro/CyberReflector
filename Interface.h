@@ -17,7 +17,6 @@
 #include "stdafx.h"
 #include <HamFramework.hpp>
 
-//#include "pauseManager.h"
 #include "ConstClass.h"
 #include "achievements.h"
 #include "animation.h"
