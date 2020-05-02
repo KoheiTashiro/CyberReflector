@@ -1,6 +1,9 @@
 # CyberReflector
 
-CyberReflectorは、C++のゲームエンジンSiv3dを用いて作られた一画面全方位シューティングゲームです。
+CyberReflectorは、C++のゲームエンジンSiv3dを用いて作られた一画面全方位シューティングゲームです。<br>
+自分から攻撃はできず、敵の弾を反射して戦うのが大きな特徴です。
+
+![ScreenShot](https://user-images.githubusercontent.com/40136659/80856754-9a92b180-8c87-11ea-9c7e-20261dd9de6c.png)
 
 
 [こちらのリンク](https://github.com/KoheiTashiro/CyberReflector/releases/download/tags/CyberReflector.zip)より、ゲームをダウンロードできます。zipファイルを解凍し、フォルダ内のexeファイルを実行してください。  
